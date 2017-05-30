@@ -1,6 +1,7 @@
 package com.example.student.database;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,6 +12,7 @@ import android.util.Log;
 
 import static android.R.attr.description;
 import static android.R.attr.id;
+import static android.os.Build.VERSION_CODES.M;
 
 public class MainActivity extends Activity {
     @Override
@@ -96,6 +98,14 @@ public class MainActivity extends Activity {
             this.context = context;
         }
 
+        public long insertContact(int number,String description) {
+            ContentValues new Values = new ContentValues();
+            new Values.put(KEY_DESCRIPTION , description);
+            new Values.put(KEY_NUMBER, number);
+            return db.insert(DB_TABLE, null, new Values);
+        }
+
+
         public class Contacts extends TodoDbAdapter{
             public Contacts(long id, String description, int number) {
                 this.id = id;
@@ -119,12 +129,12 @@ public class MainActivity extends Activity {
                 this.description = description;
             }
 
-            public boolean getNum ber() {
+            public boolean getNumber() {
                 return number;
             }
 
-            public void setNum ber(int num ber) {
-                this.num ber = num ber;
+            public void setNum ber(int number) {
+                this.number = number;
             }
 
         };
